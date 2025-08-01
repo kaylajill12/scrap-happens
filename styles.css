@@ -1,0 +1,106 @@
+/* ==== Base Styles ==== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Patrick Hand', cursive;
+    background-color: #fffafc;
+    color: #333;
+    line-height: 1.5;
+    padding: 1rem;
+}
+
+/* ==== Landing Page Styles ==== */
+.landing-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-text h1 {
+    font-size: 2rem;
+}
+
+.header-text .tagline {
+    font-size: 1.5rem;
+    font-style: italic;
+}
+
+.landing-main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    border: 5px dashed #ffb3d1;
+    border-radius: 8px;
+}
+
+.hero-icons {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.hero-icons img {
+    width: 100px;
+    height: auto;
+    border: 5px solid #ff52b1;
+    border-radius: 8px;
+}
+
+.cta-button {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #ff7ec9;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #ff52b1;
+}
+
+/* ==== Footer Styles ==== */
+footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    color: #888;
+}
+
+.footer-tagline {
+    text-align: center;
+    font-style: italic;
+    margin-top: 1rem;
+    font-size: 2rem;
+}
+
+.footer-icon {
+  width: 60px;
+  height: auto;
+  display: block;
+  margin: 0.5rem auto;
+  opacity: 0.8;
+}
