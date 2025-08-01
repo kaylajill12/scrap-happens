@@ -94,3 +94,20 @@
     font-family: inherit;
     resize: vertical;
 }
+
+
+/* ==== Desktop Styles ==== */
+@media (min-width: 769px) {
+  #menu-toggle {
+    display: none;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: auto;
+    margin-top: 0;
+  }
+}
