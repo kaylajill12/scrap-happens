@@ -37,8 +37,14 @@
             <img id="photo-preview" src="" alt="Your photo will appear here...">
             <textarea id="caption-input" placeholder="Add a caption or write a story..."></textarea>
         </div>
-        <div id="sticker-area">
-            <!-- Drag and drop stickers here -->
+        <div id="sticker-search-box" class="hidden">
+            <label for="search-stickers">Search Stickers:</label>
+            <input type="text" id="search-stickers" name="search-stickers" placeholder="Search Tenor for stickers to add to your page">
+            <button id="search-stickers-btn">Search</button>
+            <p id="search-feedback" class="feedback"></p>
+        </div>
+        <div id="sticker-area" class="hidden">
+            <p>Sticker Drawer</p>
         </div>
     </main>
     <footer>
