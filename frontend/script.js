@@ -46,3 +46,34 @@ function validateStickerSearch(input) {
   searchFeedback.textContent = '';
   return true;
 }
+
+// Search for stickers using the Tenor API
+async function searchForStickers(searchTerm) {
+  const url = `/api/search?q=${encodeURIComponent(searchTerm)}&limit=12&searchfilter=sticker&media_filter=nanogif_transparent`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Error fetching stickers: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    data.results.forEach(result => {
+      const img = document.createElement('img');
+      img.src = result.media_formats.nanogif_transparent.url;
+      img.alt = result.content_description || 'Sticker';
+      img.classList.add('sticker');
+      stickerArea.appendChild(img);
+    });
+  } catch (error) {
+    console.error('Error fetching stickers:', error);
+  }
+}
+
+document.getElementById('search-stickers-btn').addEventListener('click', () => {  
+  stickerArea.innerHTML = '';
+  const input = document.getElementById('search-stickers').value;
+  if (validateStickerSearch(input)) {
+    searchForStickers(input);
+  }
+});
