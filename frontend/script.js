@@ -63,6 +63,10 @@ async function searchForStickers(searchTerm) {
       img.src = result.media_formats.nanogif_transparent.url;
       img.alt = result.content_description || 'Sticker';
       img.classList.add('sticker');
+      img.setAttribute('draggable', true);
+      img.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', img.src);
+      });
       stickerArea.appendChild(img);
     });
   } catch (error) {
@@ -76,4 +80,36 @@ document.getElementById('search-stickers-btn').addEventListener('click', () => {
   if (validateStickerSearch(input)) {
     searchForStickers(input);
   }
+});
+
+// Drag and drop functionality for stickers
+const photoArea = document.querySelector('.photo-area');
+
+photoArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+});
+
+photoArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+
+  const src = e.dataTransfer.getData('text/plain');
+  const droppedSticker = document.createElement('img');
+  droppedSticker.src = src;
+  droppedSticker.alt = 'Sticker';
+  droppedSticker.classList.add('sticker');
+
+  const rect = photoArea.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  droppedSticker.style.position = 'absolute';
+  droppedSticker.style.left = `${x}px`;
+  droppedSticker.style.top = `${y}px`;
+
+  droppedSticker.setAttribute('draggable', true);
+  droppedSticker.addEventListener('dragstart', (e) => {
+    e.dataTransfer.setData('text/plain', droppedSticker.src);
+  });
+
+  photoArea.appendChild(droppedSticker);
 });
