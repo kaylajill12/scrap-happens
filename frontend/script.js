@@ -12,7 +12,20 @@ document.getElementById('upload-photos').addEventListener('change', (e) => {
   if (file) {
     const reader = new FileReader();
     reader.onload = () => {
-      document.getElementById('photo-preview').src = reader.result;
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 800;
+        const scaleFactor = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * scaleFactor;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+       document.getElementById('photo-preview').src = compressedDataUrl;
+        window.scrapbookCompressedImage = compressedDataUrl;
+      };
+      img.src = reader.result;
     };
     reader.readAsDataURL(file);
   }
@@ -113,3 +126,67 @@ photoArea.addEventListener('drop', (e) => {
 
   photoArea.appendChild(droppedSticker);
 });
+
+// Save the scrapbook page
+function getScrapbookData() {
+  const photo = window.scrapbookCompressedImage || '';
+  const caption = document.getElementById('caption-input').value;
+  const stickers = Array.from(document.querySelectorAll('.photo-area .sticker')).map(sticker => ({
+    src: sticker.src,
+    left: sticker.style.left,
+    top: sticker.style.top
+  }));
+  return { photo, caption, stickers };
+}
+
+document.getElementById('save-page-btn').addEventListener('click', () => {
+  const scrapbookData = getScrapbookData();
+  let pages = JSON.parse(localStorage.getItem('scrapHappensPages')) || [];
+  pages.push(scrapbookData);
+  localStorage.setItem('scrapHappensPages', JSON.stringify(pages));
+  localStorage.setItem('currentPageIndex', pages.length - 1);
+  alert('Page saved! 📝✨');
+});
+
+// Reload saved scrapbook page on refresh
+function loadScrapbookData() {
+  const pages = JSON.parse(localStorage.getItem('scrapHappensPages'));
+  const index = parseInt(localStorage.getItem('currentPageIndex')) || 0;
+
+  if (!pages || pages.length === 0) return;
+
+  const { photo, caption, stickers } = pages[index];
+
+  const photoArea = document.querySelector('.photo-area');
+  photoArea.querySelectorAll('.sticker').forEach(el => el.remove());
+  document.getElementById('caption-input').value = '';
+  document.getElementById('photo-preview').src = '';
+
+  if (photo) {
+    document.getElementById('photo-preview').src = photo;
+    window.scrapbookCompressedImage = photo;
+  }
+
+  if (caption) {
+    document.getElementById('caption-input').value = caption;
+  }
+
+  stickers.forEach(stickerData => {
+    const sticker = document.createElement('img');
+    sticker.src = stickerData.src;
+    sticker.alt = 'Sticker';
+    sticker.classList.add('sticker');
+    sticker.style.position = 'absolute';
+    sticker.style.left = stickerData.left;
+    sticker.style.top = stickerData.top;
+
+    sticker.setAttribute('draggable', true);
+    sticker.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', sticker.src);
+    });
+
+    photoArea.appendChild(sticker);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', loadScrapbookData);
