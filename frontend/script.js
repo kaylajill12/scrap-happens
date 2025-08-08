@@ -190,3 +190,45 @@ function loadScrapbookData() {
 }
 
 window.addEventListener('DOMContentLoaded', loadScrapbookData);
+
+// Navigate between scrapbook pages
+function navigateToPage(newIndex) {
+  const pages = JSON.parse(localStorage.getItem('scrapHappensPages'));
+  if (!pages || newIndex < 0 || newIndex >= pages.length) return;
+
+  localStorage.setItem('currentPageIndex', newIndex);
+  loadScrapbookData();
+}
+
+document.getElementById('prev-page-btn').addEventListener('click', () => {
+  const currentIndex = parseInt(localStorage.getItem('currentPageIndex')) || 0;
+  navigateToPage(currentIndex - 1);
+});
+
+document.getElementById('next-page-btn').addEventListener('click', () => {
+  const pages = JSON.parse(localStorage.getItem('scrapHappensPages')) || [];
+  const currentIndex = parseInt(localStorage.getItem('currentPageIndex')) || 0;
+  navigateToPage(currentIndex + 1);
+});
+
+// Add a new scrapbook page
+document.getElementById('new-page-btn').addEventListener('click', () => {
+  const confirmNew = confirm("Start a new page? Unsaved changes will be lost.");
+  if (!confirmNew) return;
+
+  document.getElementById('photo-preview').src = '';
+  document.getElementById('caption-input').value = '';
+  document.querySelectorAll('.photo-area .sticker').forEach(sticker => sticker.remove());
+  window.scrapbookCompressedImage = '';
+
+  const pages = JSON.parse(localStorage.getItem('scrapHappensPages')) || [];
+  const newBlankPage = {
+    photo: '',
+    caption: '',
+    stickers: []
+  };
+  pages.push(newBlankPage);
+  const newIndex = pages.length - 1;
+  localStorage.setItem('scrapHappensPages', JSON.stringify(pages));
+  localStorage.setItem('currentPageIndex', newIndex);
+});
