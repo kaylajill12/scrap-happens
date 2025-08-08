@@ -3,7 +3,7 @@
 
 **Stick. Snap. Share.**
 
-Welcome to *Scrap Happens*, a virtual scrapbook web app where creativity and memories collide. Upload pictures, write captions and stories, decorate them with stickers, and save your scrapbook pages to relive your memories again and again. In memory of Jay, whose Love of making every moment unforgettable inspired this project.
+Welcome to *Scrap Happens*, a virtual scrapbook web app where creativity and memories collide. Upload pictures, write captions and stories, decorate them with stickers, and save your scrapbook pages to relive your memories again and again. In memory of Jay, whose love of making every moment unforgettable inspired this project.
 
 ## 📌 Core Features
 - Uses the Tenor API to search for stickers
