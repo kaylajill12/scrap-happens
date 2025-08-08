@@ -3,44 +3,42 @@
 
 **Stick. Snap. Share.**
 
-Welcome to *Scrap Happens*, a virtual scrapbook web app where creativity and memories collide. This project is currently in development as part of my capstone project for the Code:You web development program.
+Welcome to *Scrap Happens*, a virtual scrapbook web app where creativity and memories collide. Upload pictures, write captions and stories, decorate them with stickers, and save your scrapbook pages to relive your memories again and again. In memory of Jay, whose Love of making every moment unforgettable inspired this project.
 
-## 🚧 Project Status
-This project is currently in the planning and early development stages.  
-Check back soon for updates, features, and a link to the live app!
+## 📌 Core Features
+- Uses the Tenor API to search for stickers
+- Uses a regular expression to validate search input
+- Uses a Node.js server and Express to serve sticker search results
+- Implements drag and drop interactivity with stickers
+- Uses local storage to save pages and make them accessible after reload
 
-## 🔧 Technologies Planned
-- HTML5  
-- CSS3 (Flexbox, Grid)  
-- JavaScript (ES6)  
-- Git & GitHub  
-- localStorage or a custom backend  
-- Third-party API (Quotes or Image-based)  
-- Google Fonts  
 
-## 📌 Core Features (Planned)
-- Upload photos and add captions/stories  
-- Decorate scrapbook pages with drag-and-drop stickers/icons  
-- Responsive layout for mobile and desktop  
-- Save and revisit scrapbook pages  
-- Integration with a third-party API for enhanced creativity
+## 🚀 Usage
+To run this project locally:
 
-## 📁 File Structure Preview
-```
-scrap-happens/
-├── index.html
-├── styles.css
-├── script.js
-├── README.md
-├── /assets/
-│   ├── /images/
-│   └── /stickers/
-```
+1. Clone this repo:
+   ```bash
+   git clone https://github.com/kaylajill12/scrap-happens.git
+   cd scrap-happens
+   ```
 
-## 📅 Timeline
-Capstone project due: **August 8, 2025**  
-Project plan submitted: **June 29, 2025**
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
----
+3. Create a `.env` file in the root directory and add your Tenor API key:
+   ```
+   TENOR_API_KEY=your_tenor_api_key_here
+   ```
 
-> ✨ Follow along and watch *Scrap Happens* come to life!
+4. Start the server:
+   ```bash
+   node server.js
+   ```
+
+5. Open `studio.html` in your browser, and let the scrapbooking begin!
+
+## 🎨 Icon Credits
+
+Except for the GitHub icon, which was designed with ChatGPT, all other toolbar and navigation icons were made by [Stickers](https://www.flaticon.com/authors/stickers) from [flaticon.com](https://www.flaticon.com).
